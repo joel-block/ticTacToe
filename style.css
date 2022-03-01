@@ -1,7 +1,7 @@
 body {
     background: url("/images/chalkboardBack.jpg");
     background-repeat: no-repeat;
-    background-size: 100%;
+    background-size: auto auto;
     height: 100%;
     width: 99%;
     font-family: 'Gloria Hallelujah', cursive;
@@ -12,26 +12,52 @@ body {
 
 #board {
     height: 50%;
-    width: 50%;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
 .header {
-    color: white;
+    color: #f1f1f1;
     text-align: center;
     font-size: 3rem;
+    margin-bottom: 0.5rem;
 }
 
 .start {
-    border: 1px dotted white;
+    border: 4px dotted #f1f1f1;
     border-radius: 2rem;
     background-color: transparent;
-    color: white;
+    color: #f1f1f1;
     font-family: 'Gloria Hallelujah', cursive;
     padding: 1rem;
     font-size: 1.5rem;
     width: fit-content;
     align-self: center;
+}
+
+.grid {
+    height: 35rem;
+    width: 35rem;
+    align-self: center;
+    justify-self: center;
+    padding: 1rem;
+    margin: 2rem;
+}
+
+.space {
+    height: 33%;
+    width: 33%;
+    padding: 1rem;
+}
+
+.col2 {
+    border: dotted #f1f1f1;
+    border-width: 0 4px;
+}
+
+.row2 .space {
+    border-top: dotted #f1f1f1;
+    border-bottom: dotted #f1f1f1;
+    border-width: 4px;
 }

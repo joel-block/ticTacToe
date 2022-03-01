@@ -1,4 +1,10 @@
 "use strict";
+
+let playerName = prompt('What is your name?', '');
+if (playerName === ""){
+    playerName = "challenger";
+}
+
 // Game state
 const gameState = {
     players: ['x', 'o'],
@@ -7,7 +13,7 @@ const gameState = {
         [null, null, null],
         [null, null, null]
     ],
-    gameStatus: 'Will you challenge me?',
+    gameStatus: `Would you like to play a game, ${playerName}?`,
     gameHistory: {
         wins: 0,
         losses: 0
@@ -28,23 +34,21 @@ const gameState = {
     }
 }
 
-// 
-
-// let playerName = prompt('What is your name?', '');
-// playerName ?? "Challenger";
 
 let board = document.querySelector('#board');
+let grid = document.querySelector('.grid')
+
+// Heading
+let button = document.createElement('button');
+button.classList.add('start');
+board.prepend(button);
+button.innerText = 'Begin';
 
 let h1 = document.createElement('h1');
 h1.classList.add('header');
-board.appendChild(h1);
+board.prepend(h1);
 h1.innerText = gameState.gameStatus;
 
-let button = document.createElement('button');
-button.classList.add('start');
-board.appendChild(button);
-button.innerText = 'Begin';
 
+// Grid
 
-// let grid = document.createElement('table');
-// board.appendChild(grid);
