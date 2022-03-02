@@ -1,13 +1,13 @@
 "use strict";
 
-let playerName = prompt('What is your name?', '');
+let playerName = 'Joel' /* prompt('What is your name?', ''); */
 if (playerName === ""){
     playerName = "challenger";
 }
 
 // Game state
 const gameState = {
-    players: ['x', 'o'],
+    players: ['X', 'O'],
     board: [
         [null, null, null],
         [null, null, null],
@@ -52,3 +52,26 @@ h1.innerText = gameState.gameStatus;
 
 // Grid
 
+for (let i = 0; i < gameState.board.length; i++) {
+    for (let k = 0; k < gameState.board[i].length; k++) {
+        let space = document.createElement('span');
+        space.classList.add('space');
+        grid.appendChild(space);
+        space.innerText = gameState.board[i][k];
+    }
+}
+
+
+// Event Listeners
+
+button.addEventListener('click', function() {
+    if (button.innerText === "Clear Board"){
+        gameState.clear();
+        button.innerText = "Begin";
+        gameState.gameStatus = `Wanna play another round, ${playerName}?`
+    }
+    button.innerText = "Clear Board";
+    gameState.gameStatus = "Challenge Accepted";
+    grid.addEventListener('click', function(event) {
+    })
+})

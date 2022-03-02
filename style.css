@@ -43,17 +43,33 @@ body {
     align-self: center;
     padding: 1rem;
     margin: 2rem;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-content: center;
 }
 
 .space {
-    height: 33%;
-    width: 33%;
+    display: flex;
+    height: 13rem;
+    width: 13rem;
     padding: 0;
     font-size: 5rem;
-    text-align: center;
+    align-content: center;
+    justify-content: center;
 }
 
-.col2 {
+.grid .space:nth-child(3n + 2){
+    border-left: 4px dotted #f1f1f1;
+    border-right: 4px dotted #f1f1f1;
+}
+
+.grid .space:nth-child(n + 4):nth-child(-n + 6) {
+    border-top: 4px dotted #f1f1f1;
+    border-bottom: 4px dotted #f1f1f1;
+}
+
+/* .col2 {
     border: dotted #f1f1f1;
     border-width: 0 4px;
 }
@@ -62,4 +78,4 @@ body {
     border-top: dotted #f1f1f1;
     border-bottom: dotted #f1f1f1;
     border-width: 4px;
-}
+} */
