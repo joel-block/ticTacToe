@@ -63,6 +63,10 @@ h2 {
     display: none;
 }
 
+.clear:hover {
+    background-color: #f1f1f13f;
+}
+
 .grid {
     height: 40rem;
     width: 40rem;
