@@ -10,6 +10,7 @@ body {
     display: flex;
     flex-direction: column;
     color: #f1f1f1;
+    box-sizing: border-box;
 }
 
 .top {
@@ -48,6 +49,20 @@ h2 {
     background-color: #f1f1f13f;
 }
 
+.clear {
+    border: 4px dotted #f1f1f1;
+    border-radius: 2rem;
+    background-color: #f1f1f121;
+    color: #f1f1f1;
+    font-family: 'Gloria Hallelujah', cursive;
+    padding: 1rem;
+    font-size: 1.5rem;
+    width: fit-content;
+    align-self: center;
+    cursor: pointer;
+    display: none;
+}
+
 .grid {
     height: 40rem;
     width: 40rem;
@@ -79,14 +94,3 @@ h2 {
     border-top: 4px dotted #f1f1f1;
     border-bottom: 4px dotted #f1f1f1;
 }
-
-/* .col2 {
-    border: dotted #f1f1f1;
-    border-width: 0 4px;
-}
-
-.row2 .space {
-    border-top: dotted #f1f1f1;
-    border-bottom: dotted #f1f1f1;
-    border-width: 4px;
-} */
