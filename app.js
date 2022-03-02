@@ -30,25 +30,25 @@ const gameState = {
             [null, null, null],
             [null, null, null]
         ];
-        return this.board;
     }
 }
 
-
-let board = document.querySelector('#board');
+let board = document.querySelector('.top');
 let grid = document.querySelector('.grid')
 
 // Heading
-let button = document.createElement('button');
-button.classList.add('start');
-board.prepend(button);
-button.innerText = 'Begin';
-
 let h1 = document.createElement('h1');
 h1.classList.add('header');
-board.prepend(h1);
+board.appendChild(h1);
 h1.innerText = gameState.gameStatus;
 
+let button = document.createElement('button');
+button.classList.add('start');
+board.appendChild(button);
+button.innerText = 'Begin';
+
+let h2 = document.createElement('h2');
+board.appendChild(h2);
 
 // Grid
 
@@ -65,13 +65,19 @@ for (let i = 0; i < gameState.board.length; i++) {
 // Event Listeners
 
 button.addEventListener('click', function() {
-    if (button.innerText === "Clear Board"){
+    if (button.innerText === "Clear Board") {
+        button.innerText = 'Begin';
+        gameState.gameStatus = `Wanna play another round, ${playerName}?`;
+        h2.innerText = '';
         gameState.clear();
-        button.innerText = "Begin";
-        gameState.gameStatus = `Wanna play another round, ${playerName}?`
+        for (let i = 0; i < gameState.board.length; i++) {
+            for (let k = 0; k < gameState.board[i].length; k++) {
+                space.innerText = gameState.board[i][k];
+            }
+        }
     }
     button.innerText = "Clear Board";
-    gameState.gameStatus = "Challenge Accepted";
-    grid.addEventListener('click', function(event) {
-    })
+    gameState.gameStatus = "Challenge Accepted!";
+    h1.innerText = gameState.gameStatus;
+    h2.innerText = `You control the ${gameState.players[0]}s`
 })
