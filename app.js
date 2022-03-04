@@ -2,7 +2,7 @@
 
 let playerName = "" /* prompt('What is your name?', ''); */
 if (playerName === ""){
-    playerName = "challenger";
+    playerName = "Challenger";
 }
 
 // Game state
@@ -14,7 +14,7 @@ const gameState = {
         [null, null, null],
         [null, null, null]
     ],
-    gameStatus: `Would you like to play a game, ${playerName}?`,
+    gameStatus: `Let's play some Tic-Tac-Toe, ${playerName}!`,
     gameHistory: {
         wins: 0,
         losses: 0
@@ -81,14 +81,28 @@ h1.classList.add('header');
 board.appendChild(h1);
 h1.innerText = gameState.gameStatus;
 
+let buttonContainer = document.createElement('div');
+buttonContainer.classList.add('button-container');
+board.appendChild(buttonContainer);
+
+let buttonOnePlayer = document.createElement('button');
+buttonOnePlayer.classList.add('one-player');
+buttonContainer.appendChild(buttonOnePlayer);
+buttonOnePlayer.innerText = 'One Player';
+
+let buttonTwoPlayer = document.createElement('button');
+buttonTwoPlayer.classList.add('two-player');
+buttonContainer.appendChild(buttonTwoPlayer);
+buttonTwoPlayer.innerText = 'Two Players';
+
 let button1 = document.createElement('button');
 button1.classList.add('start');
-board.appendChild(button1);
-button1.innerText = 'Begin';
+buttonContainer.appendChild(button1);
+button1.innerText = 'Go again?';
 
 let button2 = document.createElement('button');
 button2.classList.add('clear');
-board.appendChild(button2);
+buttonContainer.appendChild(button2);
 button2.innerText = 'Clear Board';
 
 let h2 = document.createElement('h2');
@@ -112,19 +126,42 @@ let spaces = document.querySelectorAll('.space')
 
 // Event Listeners
 
-button1.addEventListener('click', function() {
-    gameState.gameStatus = "Challenge Accepted!";
+buttonOnePlayer.addEventListener('click', function() {
+    gameState.gameStatus = "Challenge accepted!";
     h1.innerText = gameState.gameStatus;
-    h2.innerText = `You control the ${currentPlayer}s`;
+    h2.innerText = `${playerName} controls the ${currentPlayer}'s`;
     this.style.display = 'none';
+    buttonTwoPlayer.style.display = 'none';
     button2.style.display = 'flex';
+    grid.addEventListener('click', function(event){
+        let row = checkRow(event);
+        let col = checkCol(event);
+        gameState.move(currentPlayer, row, col);
+        event.target.innerText = gameState.board[row][col];
+    });
+    grid.style.display = 'flex';
 })
 
+buttonTwoPlayer.addEventListener('click', function() {
+    gameState.gameStatus = "Let the game begin!";
+    h1.innerText = gameState.gameStatus;
+    h2.innerText = `${currentPlayer}'s move first`;
+    this.style.display = 'none';
+    buttonOnePlayer.style.display = 'none';
+    button2.style.display = 'flex';
+    grid.addEventListener('click', function(event){
+        let row = checkRow(event);
+        let col = checkCol(event);
+        gameState.move(currentPlayer, row, col);
+        event.target.innerText = gameState.board[row][col];
+    });
+    grid.style.display = 'flex';
+})
 
 button2.addEventListener('click', function() {
     gameState.gameStatus = `Wanna play another round, ${playerName}?`;
     h1.innerText = gameState.gameStatus;
-    h2.innerText = "Let's play some more!"
+    h2.innerText = "Let's play some more!";
     gameState.clear();
     this.style.display = 'none';
     button1.style.display = 'flex';
@@ -132,11 +169,18 @@ button2.addEventListener('click', function() {
     for (let i = 0; i < spaces.length; i++){
         spaces[i].innerText = null;
     }
+    grid.style.display = 'none';
 })
 
-grid.addEventListener('click', function(event){
-    let row = checkRow(event);
-    let col = checkCol(event);
-    gameState.move(currentPlayer, row, col);
-    event.target.innerText = gameState.board[row][col];
+button1.addEventListener('click', function() {
+    buttonOnePlayer.style.display = 'flex';
+    buttonTwoPlayer.style.display = 'flex';
+    this.style.display = 'none';
 })
+
+// grid.addEventListener('click', function(event){
+//     let row = checkRow(event);
+//     let col = checkCol(event);
+//     gameState.move(currentPlayer, row, col);
+//     event.target.innerText = gameState.board[row][col];
+// })

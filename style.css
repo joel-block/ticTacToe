@@ -23,16 +23,25 @@ body {
 .header {
     text-align: center;
     font-size: 3rem;
-    margin: 0.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0;
 }
 
 h2 {
     text-align: center;
     margin: 0;
-    font-size: 1rem;
+    font-size: 1.25rem;
 }
 
-.start {
+.button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 0;
+}
+
+.one-player,
+.two-player {
     border: 4px dotted #f1f1f1;
     border-radius: 2rem;
     background-color: #f1f1f121;
@@ -45,10 +54,11 @@ h2 {
     cursor: pointer;
 }
 
-.start:hover {
-    background-color: #f1f1f13f;
+.one-player {
+    margin-right: 1rem;
 }
 
+.start,
 .clear {
     border: 4px dotted #f1f1f1;
     border-radius: 2rem;
@@ -63,7 +73,10 @@ h2 {
     display: none;
 }
 
-.clear:hover {
+.start:hover,
+.clear:hover,
+.one-player:hover,
+.two-player:hover {
     background-color: #f1f1f13f;
 }
 
@@ -73,7 +86,7 @@ h2 {
     align-self: center;
     padding: 1rem;
     margin: 2rem;
-    display: flex;
+    display: none;
     flex-flow: row wrap;
     justify-content: center;
     align-content: center;
@@ -87,9 +100,6 @@ h2 {
     font-size: 5rem;
     text-align: center;
     justify-content: center;
-    
-    /* align-content: center;
-    justify-content: center; */
 }
 
 .grid .space:nth-child(3n + 2){
