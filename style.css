@@ -1,113 +1,113 @@
 body {
-    background: url("/images/chalkboardBack.jpg");
-    background-repeat: no-repeat;
-    background-size: auto;
-    height: 99vh;
-    width: 99vw;
-    padding: 0;
-    margin: 0;
-    font-family: 'Gloria Hallelujah', cursive;
-    display: flex;
-    flex-direction: column;
-    color: #f1f1f1;
-    box-sizing: border-box;
+  background: url("/images/chalkboardBack.jpg");
+  background-repeat: no-repeat;
+  background-size: auto;
+  height: 99vh;
+  width: 99vw;
+  padding: 0;
+  margin: 0;
+  font-family: "Gloria Hallelujah", cursive;
+  display: flex;
+  flex-direction: column;
+  color: #f1f1f1;
+  box-sizing: border-box;
 }
 
 .top {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-content: center;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
 }
 
 .header {
-    text-align: center;
-    font-size: 3rem;
-    margin-top: 0.5rem;
-    margin-bottom: 0;
+  text-align: center;
+  font-size: 3rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0;
 }
 
 h2 {
-    text-align: center;
-    margin: 0;
-    font-size: 1.25rem;
+  text-align: center;
+  margin: 0;
+  font-size: 1.25rem;
 }
 
 .button-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 0;
 }
 
 .one-player,
 .two-player {
-    border: 4px dotted #f1f1f1;
-    border-radius: 2rem;
-    background-color: #f1f1f121;
-    color: #f1f1f1;
-    font-family: 'Gloria Hallelujah', cursive;
-    padding: 1rem;
-    font-size: 1.5rem;
-    width: fit-content;
-    align-self: center;
-    cursor: pointer;
+  border: 4px dotted #f1f1f1;
+  border-radius: 2rem;
+  background-color: #f1f1f121;
+  color: #f1f1f1;
+  font-family: "Gloria Hallelujah", cursive;
+  padding: 1rem;
+  font-size: 1.5rem;
+  width: fit-content;
+  align-self: center;
+  cursor: pointer;
 }
 
 .one-player {
-    margin-right: 1rem;
+  margin-right: 1rem;
 }
 
 .start,
 .clear {
-    border: 4px dotted #f1f1f1;
-    border-radius: 2rem;
-    background-color: #f1f1f121;
-    color: #f1f1f1;
-    font-family: 'Gloria Hallelujah', cursive;
-    padding: 1rem;
-    font-size: 1.5rem;
-    width: fit-content;
-    align-self: center;
-    cursor: pointer;
-    display: none;
+  border: 4px dotted #f1f1f1;
+  border-radius: 2rem;
+  background-color: #f1f1f121;
+  color: #f1f1f1;
+  font-family: "Gloria Hallelujah", cursive;
+  padding: 1rem;
+  font-size: 1.5rem;
+  width: fit-content;
+  align-self: center;
+  cursor: pointer;
+  display: none;
 }
 
 .start:hover,
 .clear:hover,
 .one-player:hover,
 .two-player:hover {
-    background-color: #f1f1f13f;
+  background-color: #f1f1f13f;
 }
 
 .grid {
-    height: 40rem;
-    width: 40rem;
-    align-self: center;
-    padding: 1rem;
-    margin: 2rem;
-    display: none;
-    flex-flow: row wrap;
-    justify-content: center;
-    align-content: center;
+  height: 40rem;
+  width: 40rem;
+  align-self: center;
+  padding: 1rem;
+  margin: 2rem;
+  display: none;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-content: center;
 }
 
 .space {
-    display: flex;
-    height: 13rem;
-    width: 13rem;
-    padding: 0;
-    font-size: 5rem;
-    text-align: center;
-    justify-content: center;
+  display: flex;
+  height: 13rem;
+  width: 13rem;
+  padding: 0;
+  font-size: 5rem;
+  text-align: center;
+  justify-content: center;
 }
 
-.grid .space:nth-child(3n + 2){
-    border-left: 4px dotted #f1f1f1;
-    border-right: 4px dotted #f1f1f1;
+.grid .space:nth-child(3n + 2) {
+  border-left: 4px dotted #f1f1f1;
+  border-right: 4px dotted #f1f1f1;
 }
 
 .grid .space:nth-child(n + 4):nth-child(-n + 6) {
-    border-top: 4px dotted #f1f1f1;
-    border-bottom: 4px dotted #f1f1f1;
+  border-top: 4px dotted #f1f1f1;
+  border-bottom: 4px dotted #f1f1f1;
 }
