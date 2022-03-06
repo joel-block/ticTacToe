@@ -92,6 +92,10 @@ h2 {
   align-content: center;
 }
 
+.grid3 {
+  display: flex;
+}
+
 .space {
   display: flex;
   height: 13rem;
