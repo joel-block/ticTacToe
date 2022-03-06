@@ -1,9 +1,10 @@
 body {
+  background-color: #2b3627;
   background: url("/images/chalkboardBack.jpg");
   background-repeat: no-repeat;
-  background-size: auto;
+  background-attachment: fixed;
+  background-size: cover;
   height: 99vh;
-  width: 99vw;
   padding: 0;
   margin: 0;
   font-family: "Gloria Hallelujah", cursive;

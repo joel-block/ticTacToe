@@ -73,10 +73,7 @@ for (let i = 0; i < 3; i++) {
 }
 
 // Define Player One's Name
-let playerName = prompt('What is your name?', 'Challenger');
-if (playerName === "") {
-  playerName = "Challenger";
-}
+let playerName = ""
 
 // Define Player Two's Name before prompt
 let player2Name = ""
@@ -89,7 +86,7 @@ const gameState = {
     [null, null, null],
     [null, null, null],
   ],
-  gameStatus: `Let's play some Tic-Tac-Toe, ${playerName}!`,
+  gameStatus: `Let's play some Tic-Tac-Toe!`,
   renderBoard: function (spaceClass) {
     for (let i = 0; i < gameState.board.length; i++){
       for (let k = 0; k < gameState.board[i].length; k++){
@@ -238,6 +235,14 @@ h1.innerText = gameState.gameStatus;
 // One Player button
 buttonOnePlayer.addEventListener("click", function () {
   grid3.style.display = "none";
+    // Set Player 1's name
+    if (playerName === "" || playerName === "Challenger") {
+      playerName = prompt('What is your name?', 'Challenger');
+    }
+    if (playerName === "") {
+      playerName = "Challenger";
+    }
+    
   gameState.gameStatus = "Challenge accepted!";
   h1.innerText = gameState.gameStatus;
   h2.innerText = `${playerName} controls the ${currentPlayer}'s.`;
@@ -297,6 +302,14 @@ grid1.addEventListener("click", function (event) {
 // Two Player button
 buttonTwoPlayer.addEventListener("click", function () {
   grid3.style.display = "none";
+  // Set Player 1's name
+  if (playerName === "" || playerName === "Challenger") {
+    playerName = prompt("What is Player 1's name?", 'Challenger');
+  }
+  if (playerName === "") {
+    playerName = "Challenger";
+  }
+
   // Set Player 2's name
   if (player2Name === "" || player2Name === "Opponent") {
     player2Name = prompt(`What is Player 2's name?`, 'Opponent');
