@@ -104,6 +104,7 @@ const gameState = {
     }
   },
   compMove: function (piece) {
+    // Random Move
     let row = Math.floor(Math.random() * 3);
     let col = Math.floor(Math.random() * 3);
     if (gameState.board[0].indexOf(null) === -1 &&
@@ -124,10 +125,10 @@ const gameState = {
       [null, null, null],
     ];
     for (let i = 0; i < spaces1.length; i++) {
-      spaces1[i].innerText = null;
+      spaces1[i].innerText = "";
     }
     for (let i = 0; i < spaces2.length; i++) {
-      spaces2[i].innerText = null;
+      spaces2[i].innerText = "";
     }
   },
   /* Board positions with index of spaces[i]:
@@ -180,16 +181,6 @@ function checkRow(event) {
   return row;
 }
 
-function addHover(spaceClass, row, col) {
-  let space = document.querySelector(`.space.${spaceClass}.row${row}.col${col}`)
-  console.log(space);
-  // if (space.innerText === null){
-  //     space.classList.add("spacehover");
-  //   }
-  // if (space.innerText !== null){
-  //   space.style.cursor = "not-allowed";
-  // }
-}
 
 function checkWin() {
   let flatBoard = gameState.board.flat();
@@ -216,6 +207,7 @@ function checkDraw() {
       gameState.board[2].indexOf(null) === -1 ) {
         gameState.gameStatus = "It's a draw!";
         h1.innerText = gameState.gameStatus;
+        h2.innerText = "Let's go another round!";
         alert("It's a draw!");
         return true;
       }
@@ -260,30 +252,17 @@ grid1.addEventListener("click", function (event) {
   // Player move
   let row = checkRow(event);
   let col = checkCol(event);
-  gameState.move(currentPlayer, row, col);
-  gameState.renderBoard('space1');
-  // Check for win
-  if (checkWin()){
-    gameState.gameStatus = `${playerName.toUpperCase()} WINS!!!`;
-    h1.innerText = gameState.gameStatus;
-    alert(`${playerName.toUpperCase()} WINS!!!`);
-    return;
-  };
-  // Check for draw
-  if (checkDraw()) {
-    return;
-  };
-  switchPlayer();
-  h2.innerText = `Computer controls the ${currentPlayer}'s.`
-  // Computer's turn
-  setTimeout( () => {
-    gameState.compMove(currentPlayer);
+  // Prevent misclick on occupied space
+  let targetSpace = document.querySelector(`.space.space1.row${row}.col${col}`);
+  if (targetSpace.innerText === "") {
+    gameState.move(currentPlayer, row, col);
     gameState.renderBoard('space1');
-    // Check for computer win
+    // Check for win
     if (checkWin()){
-      gameState.gameStatus = `Aw, you lost =(`;
+      gameState.gameStatus = `${playerName.toUpperCase()} WINS!!!`;
       h1.innerText = gameState.gameStatus;
-      alert(`Computer wins!`);
+      h2.innerText = "Let's go another round!";
+      alert(`${playerName.toUpperCase()} WINS!!!`);
       return;
     };
     // Check for draw
@@ -291,14 +270,37 @@ grid1.addEventListener("click", function (event) {
       return;
     };
     switchPlayer();
-    h2.innerText = `${playerName} controls the ${currentPlayer}'s.`;
-  }, 1500);
+    h2.innerText = `Computer controls the ${currentPlayer}'s.`
+    // Computer's turn
+    setTimeout( () => {
+      gameState.compMove(currentPlayer);
+      gameState.renderBoard('space1');
+      // Check for computer win
+      if (checkWin()){
+        gameState.gameStatus = `Aw, you lost =(`;
+        h1.innerText = gameState.gameStatus;
+        h2.innerText = "Let's go another round!";
+        alert(`Computer wins!`);
+        return;
+      };
+      // Check for draw
+      if (checkDraw()) {
+        return;
+      };
+      switchPlayer();
+      h2.innerText = `${playerName} controls the ${currentPlayer}'s.`;
+    }, 1500);
+  }
+  return;
 });
 
 // Two Player button
 buttonTwoPlayer.addEventListener("click", function () {
   grid3.style.display = "none";
-  player2Name = prompt(`What is Player 2's name?`, 'Opponent');
+  // Set Player 2's name
+  if (player2Name === "" || player2Name === "Opponent") {
+    player2Name = prompt(`What is Player 2's name?`, 'Opponent');
+  }
   if (player2Name === "") {
     player2Name = "Opponent";
   }
@@ -317,25 +319,31 @@ grid2.addEventListener("click", function (event) {
   // Player move
   let row = checkRow(event);
   let col = checkCol(event);
-  gameState.move(currentPlayer, row, col);
-  gameState.renderBoard('space2');
-  // Check for win
-  if (checkWin()){
-    gameState.gameStatus = `${currentPlayer}'S WIN!!!`;
-    h1.innerText = gameState.gameStatus;
-    alert(`${currentPlayer}'S WIN!!!`)
-    return;
+  // Prevent misclick on occupied space
+  let targetSpace = document.querySelector(`.space.space2.row${row}.col${col}`);
+  if (targetSpace.innerText === "") {
+    gameState.move(currentPlayer, row, col);
+    gameState.renderBoard('space2');
+    // Check for win
+    if (checkWin()){
+      gameState.gameStatus = `${currentPlayer}'S WIN!!!`;
+      h1.innerText = gameState.gameStatus;
+      h2.innerText = "Let's go another round!";
+      alert(`${currentPlayer}'S WIN!!!`)
+      return;
+      };
+    // Check for draw
+    if (checkDraw()) {
+      return;
     };
-  // Check for draw
-  if (checkDraw()) {
-    return;
-  };
-  switchPlayer();
-  if (h2.innerText === `It is ${playerName}'s turn!`) {
-    h2.innerText = `It is ${player2Name}'s turn!`;
-  } else {
-    h2.innerText = `It is ${playerName}'s turn!`;
+    switchPlayer();
+    if (h2.innerText === `It is ${playerName}'s turn!`) {
+      h2.innerText = `It is ${player2Name}'s turn!`;
+    } else {
+      h2.innerText = `It is ${playerName}'s turn!`;
+    }
   }
+  return;
 });
 
 // Clear Board button
@@ -358,17 +366,3 @@ buttonAgain.addEventListener("click", function () {
   buttonTwoPlayer.style.display = "flex";
   this.style.display = "none";
 });
-
-// Added CSS styles to spaces
-grid1.addEventListener('mouseover', function (event) {
-  if 
-  let row = checkRow(event);
-  let col = checkCol(event);
-  addHover('space1', row, col);
-})
-
-grid2.addEventListener('mouseover', function (event) {
-  let row = checkRow(event);
-  let col = checkCol(event);
-  addHover('space2', row, col);
-})
