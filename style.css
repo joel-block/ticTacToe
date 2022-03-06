@@ -106,6 +106,10 @@ h2 {
   justify-content: center;
 }
 
+.spacehover {
+  background-color: #f1f1f121;
+}
+
 .grid .space:nth-child(3n + 2) {
   border-left: 4px dotted #f1f1f1;
   border-right: 4px dotted #f1f1f1;

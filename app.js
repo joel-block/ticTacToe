@@ -180,38 +180,44 @@ function checkRow(event) {
   return row;
 }
 
-function checkWin(spacesClass) {
-  let spaces = spacesClass;
+function addHover(spaceClass, row, col) {
+  let space = document.querySelector(`.space.${spaceClass}.row${row}.col${col}`)
+  console.log(space);
+  // if (space.innerText === null){
+  //     space.classList.add("spacehover");
+  //   }
+  // if (space.innerText !== null){
+  //   space.style.cursor = "not-allowed";
+  // }
+}
+
+function checkWin() {
+  let flatBoard = gameState.board.flat();
   for (let i = 0; i < gameState.winCombos.length; i++){
     let idx1 = gameState.winCombos[i][0];
     let idx2 = gameState.winCombos[i][1];
     let idx3 = gameState.winCombos[i][2];
-    let inSpaceA = spaces[idx1].innerText;
-    let inSpaceB = spaces[idx2].innerText;
-    let inSpaceC = spaces[idx3].innerText;
-    console.log(`${inSpaceA}, ${inSpaceB}, ${inSpaceC} in winCombos[${i}]`)
-  //   if (spaces[idx1].innerText === 'X' || 'O' &&
-  //       spaces[idx1].innerText !== null &&
-  //       spaces[idx2].innerText !== null &&
-  //       spaces[idx3].innerText !== null &&
-  //       spaces[idx1].innerText === spaces[idx2].innerText &&
-  //       spaces[idx2].innerText === spaces[idx3].innerText &&
-  //       spaces[idx3].innerText === spaces[idx1].innerText){
-  //     return true;
-  //   }
+    let spaceA = flatBoard[idx1];
+    let spaceB = flatBoard[idx2];
+    let spaceC = flatBoard[idx3];
+    if (spaceA !== null &&
+        spaceA === spaceB &&
+        spaceB === spaceC){
+      return true;
+    }
   }
-  console.log('Outside for loop')
-  // return false;
+  return false;
 }
 
-function checkDraw(spacesClass) {
-  if (!checkWin(spacesClass) &&
+function checkDraw() {
+  if (!checkWin() &&
       gameState.board[0].indexOf(null) === -1 &&
       gameState.board[1].indexOf(null) === -1 &&
       gameState.board[2].indexOf(null) === -1 ) {
         gameState.gameStatus = "It's a draw!";
         h1.innerText = gameState.gameStatus;
-        alert("It's a draw!")
+        alert("It's a draw!");
+        return true;
       }
 }
 
@@ -237,6 +243,7 @@ h1.innerText = gameState.gameStatus;
 
 // Event Listeners
 
+// One Player button
 buttonOnePlayer.addEventListener("click", function () {
   grid3.style.display = "none";
   gameState.gameStatus = "Challenge accepted!";
@@ -246,36 +253,49 @@ buttonOnePlayer.addEventListener("click", function () {
   buttonTwoPlayer.style.display = "none";
   buttonClear.style.display = "flex";
   grid1.style.display = "flex";
-  // One Player Game Mode
-  grid1.addEventListener("click", function (event) {
-    let row = checkRow(event);
-    let col = checkCol(event);
-    gameState.move(currentPlayer, row, col);
-    gameState.renderBoard('space1');
-    if (checkWin(spaces1) === true){
-      gameState.gameStatus = `${playerName} WINS!!!`;
-      h1.innerText = gameState.gameStatus;
-      alert(`${playerName} WINS!!!`)
-    };
-    checkDraw(spaces1);
-    switchPlayer();
-    h2.innerText = `Computer controls the ${currentPlayer}'s.`
-    // Computer's turn
-    setTimeout( () => {
-      gameState.compMove(currentPlayer);
-      gameState.renderBoard('space1');
-      if (checkWin(spaces1) === true){
-        gameState.gameStatus = `Aw, you lost =(`;
-        h1.innerText = gameState.gameStatus;
-        alert(`Computer wins!`)
-      };
-      checkDraw(spaces1);
-      switchPlayer();
-      h2.innerText = `${playerName} controls the ${currentPlayer}'s.`;
-    }, 1500);
-  });
 });
 
+// One Player Game Mode
+grid1.addEventListener("click", function (event) {
+  // Player move
+  let row = checkRow(event);
+  let col = checkCol(event);
+  gameState.move(currentPlayer, row, col);
+  gameState.renderBoard('space1');
+  // Check for win
+  if (checkWin()){
+    gameState.gameStatus = `${playerName.toUpperCase()} WINS!!!`;
+    h1.innerText = gameState.gameStatus;
+    alert(`${playerName.toUpperCase()} WINS!!!`);
+    return;
+  };
+  // Check for draw
+  if (checkDraw()) {
+    return;
+  };
+  switchPlayer();
+  h2.innerText = `Computer controls the ${currentPlayer}'s.`
+  // Computer's turn
+  setTimeout( () => {
+    gameState.compMove(currentPlayer);
+    gameState.renderBoard('space1');
+    // Check for computer win
+    if (checkWin()){
+      gameState.gameStatus = `Aw, you lost =(`;
+      h1.innerText = gameState.gameStatus;
+      alert(`Computer wins!`);
+      return;
+    };
+    // Check for draw
+    if (checkDraw()) {
+      return;
+    };
+    switchPlayer();
+    h2.innerText = `${playerName} controls the ${currentPlayer}'s.`;
+  }, 1500);
+});
+
+// Two Player button
 buttonTwoPlayer.addEventListener("click", function () {
   grid3.style.display = "none";
   player2Name = prompt(`What is Player 2's name?`, 'Opponent');
@@ -290,28 +310,35 @@ buttonTwoPlayer.addEventListener("click", function () {
   buttonOnePlayer.style.display = "none";
   buttonClear.style.display = "flex";
   grid2.style.display = "flex";
-
-  // Two Player Game Mode
-  grid2.addEventListener("click", function (event) {
-    let row = checkRow(event);
-    let col = checkCol(event);
-    gameState.move(currentPlayer, row, col);
-    gameState.renderBoard('space2');
-    if (checkWin(spaces2) === true){
-      gameState.gameStatus = `${currentPlayer}'S WIN!!!`;
-      h1.innerText = gameState.gameStatus;
-      alert(`${currentPlayer}'S WIN!!!`)
-    };
-    checkDraw(spaces2);
-    switchPlayer();
-    if (h2.innerText === `It is ${playerName}'s turn!`) {
-      h2.innerText = `It is ${player2Name}'s turn!`;
-    } else {
-      h2.innerText = `It is ${playerName}'s turn!`;
-    }
-  });
 });
 
+// Two Player Game Mode
+grid2.addEventListener("click", function (event) {
+  // Player move
+  let row = checkRow(event);
+  let col = checkCol(event);
+  gameState.move(currentPlayer, row, col);
+  gameState.renderBoard('space2');
+  // Check for win
+  if (checkWin()){
+    gameState.gameStatus = `${currentPlayer}'S WIN!!!`;
+    h1.innerText = gameState.gameStatus;
+    alert(`${currentPlayer}'S WIN!!!`)
+    return;
+    };
+  // Check for draw
+  if (checkDraw()) {
+    return;
+  };
+  switchPlayer();
+  if (h2.innerText === `It is ${playerName}'s turn!`) {
+    h2.innerText = `It is ${player2Name}'s turn!`;
+  } else {
+    h2.innerText = `It is ${playerName}'s turn!`;
+  }
+});
+
+// Clear Board button
 buttonClear.addEventListener("click", function () {
   gameState.gameStatus = `Wanna play another round, ${playerName}?`;
   h1.innerText = gameState.gameStatus;
@@ -325,8 +352,23 @@ buttonClear.addEventListener("click", function () {
   grid3.style.display = "flex";
 });
 
+// Play again button
 buttonAgain.addEventListener("click", function () {
   buttonOnePlayer.style.display = "flex";
   buttonTwoPlayer.style.display = "flex";
   this.style.display = "none";
 });
+
+// Added CSS styles to spaces
+grid1.addEventListener('mouseover', function (event) {
+  if 
+  let row = checkRow(event);
+  let col = checkCol(event);
+  addHover('space1', row, col);
+})
+
+grid2.addEventListener('mouseover', function (event) {
+  let row = checkRow(event);
+  let col = checkCol(event);
+  addHover('space2', row, col);
+})
