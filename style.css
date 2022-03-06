@@ -1,8 +1,9 @@
 body {
-  background-color: #2b3627;
+  background-color: #1e3524;
   background: url("/images/chalkboardBack.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
+  background-position: bottom right;
   background-size: cover;
   height: 99vh;
   padding: 0;
