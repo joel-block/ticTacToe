@@ -90,10 +90,6 @@ const gameState = {
     [null, null, null],
   ],
   gameStatus: `Let's play some Tic-Tac-Toe, ${playerName}!`,
-  gameHistory: {
-    wins: 0,
-    losses: 0,
-  },
   renderBoard: function (spaceClass) {
     for (let i = 0; i < gameState.board.length; i++){
       for (let k = 0; k < gameState.board[i].length; k++){
@@ -184,12 +180,39 @@ function checkRow(event) {
   return row;
 }
 
-function checkWinOne() {
-
+function checkWin(spacesClass) {
+  let spaces = spacesClass;
+  for (let i = 0; i < gameState.winCombos.length; i++){
+    let idx1 = gameState.winCombos[i][0];
+    let idx2 = gameState.winCombos[i][1];
+    let idx3 = gameState.winCombos[i][2];
+    let inSpaceA = spaces[idx1].innerText;
+    let inSpaceB = spaces[idx2].innerText;
+    let inSpaceC = spaces[idx3].innerText;
+    console.log(`${inSpaceA}, ${inSpaceB}, ${inSpaceC} in winCombos[${i}]`)
+  //   if (spaces[idx1].innerText === 'X' || 'O' &&
+  //       spaces[idx1].innerText !== null &&
+  //       spaces[idx2].innerText !== null &&
+  //       spaces[idx3].innerText !== null &&
+  //       spaces[idx1].innerText === spaces[idx2].innerText &&
+  //       spaces[idx2].innerText === spaces[idx3].innerText &&
+  //       spaces[idx3].innerText === spaces[idx1].innerText){
+  //     return true;
+  //   }
+  }
+  console.log('Outside for loop')
+  // return false;
 }
 
-function checkWinTwo() {
-
+function checkDraw(spacesClass) {
+  if (!checkWin(spacesClass) &&
+      gameState.board[0].indexOf(null) === -1 &&
+      gameState.board[1].indexOf(null) === -1 &&
+      gameState.board[2].indexOf(null) === -1 ) {
+        gameState.gameStatus = "It's a draw!";
+        h1.innerText = gameState.gameStatus;
+        alert("It's a draw!")
+      }
 }
 
 function randomPlayer() {
@@ -229,12 +252,24 @@ buttonOnePlayer.addEventListener("click", function () {
     let col = checkCol(event);
     gameState.move(currentPlayer, row, col);
     gameState.renderBoard('space1');
+    if (checkWin(spaces1) === true){
+      gameState.gameStatus = `${playerName} WINS!!!`;
+      h1.innerText = gameState.gameStatus;
+      alert(`${playerName} WINS!!!`)
+    };
+    checkDraw(spaces1);
     switchPlayer();
     h2.innerText = `Computer controls the ${currentPlayer}'s.`
     // Computer's turn
     setTimeout( () => {
       gameState.compMove(currentPlayer);
       gameState.renderBoard('space1');
+      if (checkWin(spaces1) === true){
+        gameState.gameStatus = `Aw, you lost =(`;
+        h1.innerText = gameState.gameStatus;
+        alert(`Computer wins!`)
+      };
+      checkDraw(spaces1);
       switchPlayer();
       h2.innerText = `${playerName} controls the ${currentPlayer}'s.`;
     }, 1500);
@@ -262,6 +297,12 @@ buttonTwoPlayer.addEventListener("click", function () {
     let col = checkCol(event);
     gameState.move(currentPlayer, row, col);
     gameState.renderBoard('space2');
+    if (checkWin(spaces2) === true){
+      gameState.gameStatus = `${currentPlayer}'S WIN!!!`;
+      h1.innerText = gameState.gameStatus;
+      alert(`${currentPlayer}'S WIN!!!`)
+    };
+    checkDraw(spaces2);
     switchPlayer();
     if (h2.innerText === `It is ${playerName}'s turn!`) {
       h2.innerText = `It is ${player2Name}'s turn!`;
